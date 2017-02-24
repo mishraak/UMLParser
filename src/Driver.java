@@ -1,5 +1,6 @@
 public class Driver {
 	public static void main(String[] args) {
-		System.out.println("Hello world!");
+		Parser parser = new Parser("/Users/akshaymishra/Desktop/input/", "outDiagram");
+		parser.parse();
 	}
 }
