@@ -17,6 +17,8 @@ public class Parser {
 	final String outDir;
 	ArrayList<CompilationUnit> cunits;
 	HashMap<String, String> mapClassOrInterface;
+	String umlString;
+	
 	
     Parser(String in, String out) {
         this.inDir = in;
@@ -26,23 +28,34 @@ public class Parser {
 	public void triggerParse() throws ParseException, IOException {
 		//get list of all compilation units in an array list
 		cunits = getCunits(inDir);
-/*		for ( CompilationUnit cunit : cunits) {
+		/*for ( CompilationUnit cunit : cunits) {
 			System.out.println(cunit);
 		}*/
-		//buildMapOfCI(cunits);
 		
-	}
-	
-	private void buildMapOfCI(ArrayList<CompilationUnit> cunits) {
-        for (CompilationUnit cu : cunits) {
-            List<TypeDeclaration> typesList = cu.getTypes();
+        for (CompilationUnit cunit : cunits) {
+            List<TypeDeclaration> typesList = cunit.getTypes();
             for (Node node : typesList) {
                 ClassOrInterfaceDeclaration cOrI = (ClassOrInterfaceDeclaration) node;
                 mapClassOrInterface.put(cOrI.getName(), cOrI.isInterface() ? "INTERFACE" : "CLASS" ); 
             }
         }
+        
+        for (CompilationUnit cu : cunits)
+        	umlString += parseCode(cu);
+        
+		
+		
 	}
 	
+	private String parseCode(CompilationUnit cu) {
+		
+		String fresult = "", classNm = "", classShrtNm = "", method = "", field = "", addition = ",";
+		ArrayList<String> makeFieldPublic = new ArrayList<String>();
+        List<TypeDeclaration> ltd = cu.getTypes();
+		
+		return "";
+		
+	}
 	
 	//http://stackoverflow.com/questions/32178349/parse-attributes-from-java-files-using-java-parser
 	private ArrayList<CompilationUnit> getCunits(String inDir) throws ParseException, IOException {
@@ -66,4 +79,10 @@ public class Parser {
 		}
 		return cunitsArray;
 	}
+	
+	
+	
+	
+	
+	
 }
