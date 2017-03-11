@@ -13,13 +13,14 @@ import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.body.BodyDeclaration;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.body.ConstructorDeclaration;
+import com.github.javaparser.ast.body.Parameter;
 import com.github.javaparser.ast.body.TypeDeclaration;
 
 public class Parser {
 	final String inDir;
 	final String outDir;
 	ArrayList<CompilationUnit> cunits;
-	Map<String, String> mapClassOrInterface = new HashMap<String, String>();
+	Map<String, Boolean> mapClassOrInterface = new HashMap<String, Boolean>();
 	StringBuffer umlString=new StringBuffer();
 
 	Parser(String in, String out) {
@@ -28,72 +29,116 @@ public class Parser {
 	}
 
 	public void triggerParse() throws ParseException, IOException {
+		String astString="";
 		//get list of all compilation units in an array list
-		this.cunits = getCunits(inDir);
+		cunits = getCunits(inDir);
 		/*for ( CompilationUnit cunit : cunits) {
 			System.out.println(cunit);
 		}*/
 		
 		//Class or Interface
 		for (CompilationUnit cunit : cunits) {
-			umlString.append("[ ");
 			//System.out.println(cunit);
 			List<TypeDeclaration> typesList = cunit.getTypes();
 			for (Node node : typesList) {
 				//System.out.println(node);
 				ClassOrInterfaceDeclaration cOrI = (ClassOrInterfaceDeclaration) node;
 				//System.out.println(cOrI.isInterface());
-				mapClassOrInterface.put(cOrI.getName(), (cOrI.isInterface() ? "INTERFACE" : "CLASS") ); 
+				mapClassOrInterface.put(cOrI.getName(), cOrI.isInterface());
 			}
 		}
 		
+		
 		//Each compilation unit undergoes parsing now
 		for (CompilationUnit cu : cunits)	
-			umlString.append(parseCode(cu));	
+			astString = parseCode(cu);
+			
+		//System.out.println(x);
 	}
 	
-	private String parseCode(CompilationUnit cu) {
-        ArrayList classNames = getClasses(cu);
-	}
-	
-	private static ArrayList<String> getClasses(CompilationUnit cu)
-    {
-        ArrayList classList = new ArrayList();
-        for (TypeDeclaration typeDec : cu.getTypes()) {
-            if(typeDec instanceof ClassOrInterfaceDeclaration && !((ClassOrInterfaceDeclaration) typeDec).isInterface())
-            {
-                classList.add(typeDec.getName());
-            }
-        }
-        return classList;
-    }
 
-	/*
+	
 	 	private String parseCode(CompilationUnit cu) {
 
-		StringBuffer fresult 	= new StringBuffer(), 
-					 classNm 	= new StringBuffer(),
-					 method 	= new StringBuffer(), 
-					 field 		= new StringBuffer(), 
-					 addition 	= new StringBuffer(",");
+		String fresult 		= new String(),
+			   extras		= new String(),	
+			   classNm 		= new String(),
+			   functions 	= new String(), 
+			   field 		= new String(), 
+			   addition 	= new String(","),
+			   classNmMap   = new String(),
+			   paramCls     = new String(),
+			   paramNm	    = new String();
 		
-		String classNmMap="";
+		Parameter param;
 		
 		List<String> makeFieldPublic = new ArrayList<String>();
 		
 		List<TypeDeclaration> ltd = cu.getTypes();
 		Node node = ltd.get(0);
 		ClassOrInterfaceDeclaration corid = (ClassOrInterfaceDeclaration) node;
-		if (corid.isInterface())
-			umlString.append("<<INTERFACE>>");
-		else 
-			umlString.append("CLASS");
+
+		if (!corid.isInterface()) 
+			 classNm = "[";
+        else 
+        	 classNm =  "[<<interface>>";
+        
+		classNm 	+= corid.getName();
+		classNmMap   = corid.getName();
 		
-			classNm.append(corid.getName());
-			classNmMap=corid.getName();
-			return umlString.toString() + " ]";
+		
+        boolean isThereAnotherParam = false;
+        for (BodyDeclaration bodyDecl : ((TypeDeclaration) node).getMembers()) {	
+        	ConstructorDeclaration construcDecl = (ConstructorDeclaration) bodyDecl;
+        	boolean isPublic = construcDecl.getDeclarationAsString().startsWith("public"), isInterface = corid.isInterface();
+        	
+        	if ( isPublic && !isInterface) {
+        		if (isThereAnotherParam){    //true for the first time
+        			
+        			functions = functions + ";";
+        			functions = functions + "+ ";
+        			functions = functions + construcDecl.getName();
+        			functions = functions + "(";
+        			
+                    for (Object childrenNode : construcDecl.getChildrenNodes()) {
+                    	
+                        if (childrenNode instanceof Parameter) {
+                             param = (Parameter) childrenNode;
+                             paramCls = param.getType().toString();
+                             paramNm = param.getChildrenNodes().get(0).toString();
+                             
+                            functions = functions+ paramNm + " : " + paramCls;
+                            if (mapClassOrInterface.containsKey(paramCls) 			//check for the existence in keys
+                            		&& !mapClassOrInterface.get(classNmMap)) {		//check using separately stored class name, shouldn't repeat
+                            	extras = extras + "["; 
+                            	extras = extras + classNmMap;
+                            	extras = extras + "] uses -.->";
+                            	
+                                if (mapClassOrInterface.get(paramCls)) {
+                                	extras = extras + "[<<interface>>;"; 
+                                	extras = extras + paramCls;
+                                	extras = extras+ "]";
+                                }
+                                else {
+                                	extras = extras + "["; 
+                                	extras = extras + paramCls; 
+                                	extras = extras + "]";
+                                }
+                            }
+                            extras = extras + ",";
+                        }
+                    }
+                   
+                    functions += ")";
+                    isThereAnotherParam = true;
+        		}
+        	}	
+        }
+        
+        
+        
+			return umlString.toString();
 		}
-	 */
 		
 			
 			
