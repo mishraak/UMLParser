@@ -54,12 +54,12 @@ public class Parser {
 		for (CompilationUnit cu : cunits)	
 			astString = parseCode(cu);
 			
-		//System.out.println(x);
+		//System.out.println(astString);
 	}
 	
 
 	
-	 	private String parseCode(CompilationUnit cu) {
+	private String parseCode(CompilationUnit cu) {
 
 		String fresult 		= new String(),
 			   extras		= new String(),	
@@ -72,8 +72,7 @@ public class Parser {
 			   paramNm	    = new String();
 		
 		Parameter param;
-		
-		List<String> makeFieldPublic = new ArrayList<String>();
+		List<String> publicFields = new ArrayList<String>();
 		
 		List<TypeDeclaration> ltd = cu.getTypes();
 		Node node = ltd.get(0);
@@ -83,57 +82,58 @@ public class Parser {
 			 classNm = "[";
         else 
         	 classNm =  "[<<interface>>";
-        
-		classNm 	+= corid.getName();
+
+		classNm 	 = classNm + corid.getName();
 		classNmMap   = corid.getName();
 		
-		
-        boolean isThereAnotherParam = false;
-        for (BodyDeclaration bodyDecl : ((TypeDeclaration) node).getMembers()) {	
+		//System.out.println(classNm);
+        boolean isThereAnotherParam = false;			//just to adjust for semicolons
+        for (BodyDeclaration bodyDecl : ((TypeDeclaration) node).getMembers()) {
+          if (bodyDecl instanceof ConstructorDeclaration) {
         	ConstructorDeclaration construcDecl = (ConstructorDeclaration) bodyDecl;
         	boolean isPublic = construcDecl.getDeclarationAsString().startsWith("public"), isInterface = corid.isInterface();
         	
         	if ( isPublic && !isInterface) {
-        		if (isThereAnotherParam){    //true for the first time
-        			
+        		if (isThereAnotherParam){   
         			functions = functions + ";";
-        			functions = functions + "+ ";
-        			functions = functions + construcDecl.getName();
-        			functions = functions + "(";
+    			functions = functions + "+ ";
+    			functions = functions + construcDecl.getName();
+    			functions = functions + "(";
         			
-                    for (Object childrenNode : construcDecl.getChildrenNodes()) {
-                    	
-                        if (childrenNode instanceof Parameter) {
-                             param = (Parameter) childrenNode;
-                             paramCls = param.getType().toString();
-                             paramNm = param.getChildrenNodes().get(0).toString();
-                             
-                            functions = functions+ paramNm + " : " + paramCls;
-                            if (mapClassOrInterface.containsKey(paramCls) 			//check for the existence in keys
-                            		&& !mapClassOrInterface.get(classNmMap)) {		//check using separately stored class name, shouldn't repeat
-                            	extras = extras + "["; 
-                            	extras = extras + classNmMap;
-                            	extras = extras + "] uses -.->";
-                            	
-                                if (mapClassOrInterface.get(paramCls)) {
-                                	extras = extras + "[<<interface>>;"; 
-                                	extras = extras + paramCls;
-                                	extras = extras+ "]";
-                                }
-                                else {
-                                	extras = extras + "["; 
-                                	extras = extras + paramCls; 
-                                	extras = extras + "]";
-                                }
+                for (Object childrenNode : construcDecl.getChildrenNodes()) {
+                    if (childrenNode instanceof Parameter) {
+                         param = (Parameter) childrenNode;
+                         paramCls = param.getType().toString();
+                         paramNm = param.getChildrenNodes().get(0).toString();
+                         
+                        functions = functions + paramNm + " : " + paramCls;
+                        if (mapClassOrInterface.containsKey(paramCls) 			//check for the existence in keys
+                        		&& !mapClassOrInterface.get(classNmMap)) {		//check using separately stored class name, shouldn't repeat
+                        	extras = extras + "["; 
+                        	extras = extras + classNmMap;
+                        	extras = extras + "] uses -.->";
+                        	
+                            if (mapClassOrInterface.get(paramCls)) {
+                            	extras = extras + "[<<interface>>;"; 
+                            	extras = extras + paramCls;
+                            	extras = extras+ "]";
                             }
-                            extras = extras + ",";
+                            else {
+                            	extras = extras + "["; 
+                            	extras = extras + paramCls; 
+                            	extras = extras + "]";
+                            }
                         }
+                        extras = extras + ",";
                     }
+                }
                    
-                    functions += ")";
-                    isThereAnotherParam = true;
+	            functions = functions + ")";
+	            System.out.println(functions);
+	            isThereAnotherParam = true;
         		}
-        	}	
+        	}
+          }
         }
         
         for (BodyDeclaration bodyDecl : ((TypeDeclaration) node).getMembers()) {
@@ -142,18 +142,71 @@ public class Parser {
         		 boolean isPublic = methodDecl.getDeclarationAsString().startsWith("public"), isInterface=corid.isInterface();
         		 if (isPublic && !isInterface) {
         			 //check for getters and setters
-        			 if (methodDecl.getName().startsWith("set") || methodDecl.getName().startsWith("get")) {
-        				 
+        			 boolean isGetter=methodDecl.getName().startsWith("get");
+        			 boolean isSetter=methodDecl.getName().startsWith("set");
+        			 if ( isGetter || isSetter) {
+        				 publicFields.add(methodDecl.getName().substring(3)); //3 for the attribute
+        				 //System.out.println(methodDecl.getName().substring(3));
+        			 }
+        			 else {
+        				 if (isThereAnotherParam){   
+        	        			functions = functions + ";";
+        	        	 
+        	        			functions = functions + "+ "; 
+        	        			functions = functions + methodDecl.getName();
+        	        			functions = functions + "(";
+        	        			
+        	        			
+        	        			for (Object childrenNode : methodDecl.getChildrenNodes()) {
+                                    if (childrenNode instanceof Parameter) {
+                                        Parameter paramCast = (Parameter) childrenNode;
+                                        String paramClass = paramCast.getType()
+                                                .toString();
+                                        String paramName = paramCast.getChildrenNodes()
+                                                .get(0).toString();
+                                        functions = functions +  paramName + " : " + paramClass;
+                                        if (mapClassOrInterface.containsKey(paramClass)	//check for existence in map
+                                                && !mapClassOrInterface.get(classNmMap)) {	//check if it is interface
+                                        	extras = extras + "["; 
+                                        	extras = extras + classNmMap;
+                                        	extras = extras + "] uses -.->";
+                                            if (mapClassOrInterface.get(paramClass)){
+                                            	extras = extras + "[<<interface>>;";
+                                            	extras = extras + paramClass; 
+                                            	extras = extras + "]";
+                                            }
+                                            else{
+                                            	extras = extras + "[" ; 
+                                            	extras = extras + paramClass; 
+                                            	extras = extras + "]";
+                                            }
+                                        }
+                                        extras += ",";
+                                    } else {
+                                        String methodBody[] = childrenNode.toString().split(" ");
+                                        for (String foo : methodBody) {
+                                            if (mapClassOrInterface.containsKey(foo)
+                                                    && !mapClassOrInterface.get(classNmMap)) {
+                                            	extras += "[" + classNmMap
+                                                        + "] uses -.->";
+                                                if (mapClassOrInterface.get(foo))
+                                                	extras += "[<<interface>>;" + foo
+                                                            + "]";
+                                                else
+                                                	extras += "[" + foo + "]";
+                                                extras += ",";
+                                            }
+                                        }
+                                    }
+                            }
         			 }
         		 }
         		 
         	 }
-        }
-        
-			return umlString.toString();
+        }	
 		}
-		
-			
+        return umlString.toString();
+	}		
 			
 			
 			
