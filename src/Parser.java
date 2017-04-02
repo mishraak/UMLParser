@@ -61,13 +61,13 @@ public class Parser {
                          paramNm = param.getChildrenNodes().get(0).toString();
                          
                         functions = functions + paramNm + " : " + paramCls;
-                        if (getMapClassOrInterface.containsKey(paramCls) 			//check for the existence in keys
-                        		&& !getMapClassOrInterface.get(classNmMap)) {		//check using separately stored class name, shouldn't repeat
+                        if (PreParser.getMapClassOrInterface().containsKey(paramCls) 			//check for the existence in keys
+                        		&& !PreParser.getMapClassOrInterface().get(classNmMap)) {		//check using separately stored class name, shouldn't repeat
                         	extras = extras + "["; 
                         	extras = extras + classNmMap;
                         	extras = extras + "] uses -.->";
                         	
-                            if (mapClassOrInterface.get(paramCls)) {
+                            if (PreParser.getMapClassOrInterface().get(paramCls)) {
                             	extras = extras + "[<<interface>>;"; 
                             	extras = extras + paramCls;
                             	extras = extras+ "]";
@@ -119,12 +119,12 @@ public class Parser {
                                         String paramName = paramCast.getChildrenNodes()
                                                 .get(0).toString();
                                         functions = functions +  paramName + " : " + paramClass;
-                                        if (mapClassOrInterface.containsKey(paramClass)	//check for existence in map
-                                                && !mapClassOrInterface.get(classNmMap)) {	//check if it is interface
+                                        if (PreParser.getMapClassOrInterface().containsKey(paramClass)	//check for existence in map
+                                                && !PreParser.getMapClassOrInterface().get(classNmMap)) {	//check if it is interface
                                         	extras = extras + "["; 
                                         	extras = extras + classNmMap;
                                         	extras = extras + "] uses -.->";
-                                            if (mapClassOrInterface.get(paramClass)){
+                                            if (PreParser.getMapClassOrInterface().get(paramClass)){
                                             	extras = extras + "[<<interface>>;";
                                             	extras = extras + paramClass; 
                                             	extras = extras + "]";
@@ -139,11 +139,11 @@ public class Parser {
                                     } else {
                                         String methodBody[] = childrenNode.toString().split(" ");
                                         for (String foo : methodBody) {
-                                            if (mapClassOrInterface.containsKey(foo)
-                                                    && !mapClassOrInterface.get(classNmMap)) {
+                                            if (PreParser.getMapClassOrInterface().containsKey(foo)
+                                                    && !PreParser.getMapClassOrInterface().get(classNmMap)) {
                                             	extras += "[" + classNmMap
                                                         + "] uses -.->";
-                                                if (mapClassOrInterface.get(foo))
+                                                if (PreParser.getMapClassOrInterface().get(foo))
                                                 	extras += "[<<interface>>;" + foo
                                                             + "]";
                                                 else
