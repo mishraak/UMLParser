@@ -29,6 +29,12 @@ public class PreParser {
 		this.inDir = in;
 		this.outDir = this.outDir + "/" + out + ".png";
 	}
+	
+	public static Map<String, Boolean> getMapClassOrInterface() {
+		return mapClassOrInterface;
+		
+	}
+	
 
 	public void triggerParse() throws ParseException, IOException {
 		String astString = "";
@@ -52,7 +58,7 @@ public class PreParser {
 
 		// Each compilation unit undergoes parsing now
 		for (CompilationUnit cu : cunits)
-			astString = parseCode(cu);
+			astString = Parser.parseCode(cu);
 
 		// System.out.println(astString);
 	}

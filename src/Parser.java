@@ -13,7 +13,7 @@ import com.github.javaparser.ast.body.TypeDeclaration;
 public class Parser {
 	
 	
-	private String parseCode(CompilationUnit cu) {
+	public static String parseCode(CompilationUnit cu) {
 
 		String fresult 		= new String(),
 			   extras		= new String(),	
@@ -61,8 +61,8 @@ public class Parser {
                          paramNm = param.getChildrenNodes().get(0).toString();
                          
                         functions = functions + paramNm + " : " + paramCls;
-                        if (mapClassOrInterface.containsKey(paramCls) 			//check for the existence in keys
-                        		&& !mapClassOrInterface.get(classNmMap)) {		//check using separately stored class name, shouldn't repeat
+                        if (getMapClassOrInterface.containsKey(paramCls) 			//check for the existence in keys
+                        		&& !getMapClassOrInterface.get(classNmMap)) {		//check using separately stored class name, shouldn't repeat
                         	extras = extras + "["; 
                         	extras = extras + classNmMap;
                         	extras = extras + "] uses -.->";
