@@ -62,7 +62,7 @@ public class Parser {
                          
                         functions = functions + paramNm + " : " + paramCls;
                         if (PreParser.getMapClassOrInterface().containsKey(paramCls) 			//check for the existence in keys
-                        		&& !PreParser.getMapClassOrInterface().get(classNmMap)) {		//check using separately stored class name, shouldn't repeat
+                        		&& !(PreParser.getMapClassOrInterface().get(classNmMap))) {		//check using separately stored class name, shouldn't repeat
                         	extras = extras + "["; 
                         	extras = extras + classNmMap;
                         	extras = extras + "] uses -.->";
