@@ -212,12 +212,13 @@ public class Parser {
 			if (listOfFiles[i].isFile() && listOfFiles[i].getName().endsWith(".java")) {
 				// System.out.println(listOfFiles[i].getName());
 				FileInputStream filestream = new FileInputStream(listOfFiles[i]);
+				
 				// System.out.println(fis instanceof FileInputStream);
 				// System.out.println(cunit instanceof CompilationUnit);
+				
 				try {
 					cunitsArray.add(JavaParser.parse(filestream));
 				} catch (com.github.javaparser.ParseException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				finally {
