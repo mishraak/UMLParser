@@ -154,14 +154,14 @@ public class Parser {
                                         for (String mb : methodBody) {
                                             if (mapClassOrInterface.containsKey(mb)
                                                     && !mapClassOrInterface.get(classNmMap)) {
-                                            	extras += "[" + classNmMap
+                                            	extras = extras + "[" + classNmMap
                                                         + "] uses -.->";
                                                 if (mapClassOrInterface.get(mb))
                                                 	extras += "[<<interface>>;" + mb
                                                             + "]";
                                                 else
                                                 	extras += "[" + mb + "]";
-                                                extras += ",";
+                                                	extras += ",";
                                             }
                                         }
                                     }
