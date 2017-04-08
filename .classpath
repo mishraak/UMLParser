@@ -16,8 +16,7 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/Users/akshaymishra/workspace/Sanjeedha/jars/javaparser-core-2.2.3-SNAPSHOT.jar"/>
-	<classpathentry kind="lib" path="/Users/akshaymishra/workspace/Sanjeedha/jars/plantuml.jar"/>
-	<classpathentry kind="lib" path="/Users/akshaymishra/workspace/Sanjeedha/jars/plantuml4idea.jar"/>
+	<classpathentry kind="lib" path="/Users/akshaymishra/workspace/UMLParser/jars/javaparser-core-2.5.0.jar"/>
+	<classpathentry kind="lib" path="/Users/akshaymishra/workspace/UMLParser/jars/plantuml.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
