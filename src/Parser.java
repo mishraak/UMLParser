@@ -117,7 +117,7 @@ public class Parser {
         			 boolean isSetter=methodDecl.getName().startsWith("set");
         			 if ( isGetter || isSetter) {
         				 publicFields.add(methodDecl.getName().substring(3)); //3 for the attribute
-        				 System.out.println(methodDecl.getName().substring(3));
+        				 //System.out.println(methodDecl.getName().substring(3));
         			 }
         			 else {
         				 if (isThereAnotherParam){   
