@@ -97,8 +97,7 @@ public class Parser {
                         }
                         extras = extras + ",";
                     }
-                }
-                   
+                }           
 	            functions = functions + ")";
 	            //System.out.println(functions);
 	            isThereAnotherParam = true;
@@ -149,7 +148,7 @@ public class Parser {
                                             	extras = extras + "]";
                                             }
                                         }
-                                        extras += ",";
+                                        extras = extras+ ",";
                                     } else {
                                         String methodBody[] = childrenNode.toString().split(" ");
                                         for (String mb : methodBody) {
