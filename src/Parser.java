@@ -100,7 +100,7 @@ public class Parser {
                 }
                    
 	            functions = functions + ")";
-	            //System.out.println(functions);
+	            System.out.println(functions);
 	            isThereAnotherParam = true;
         		}
         	}
