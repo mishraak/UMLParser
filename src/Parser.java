@@ -56,7 +56,7 @@ public class Parser {
 		classNm 	 = classNm + corid.getName();
 		classNmMap   = corid.getName();
 		
-		//System.out.println(classNm);
+		System.out.println(classNm);
         boolean isThereAnotherParam = false;			//just to adjust for semicolons
         for (BodyDeclaration bodyDecl : ((TypeDeclaration) node).getMembers()) {
           if (bodyDecl instanceof ConstructorDeclaration) {
@@ -100,7 +100,7 @@ public class Parser {
                 }
                    
 	            functions = functions + ")";
-	            System.out.println(functions);
+	            //System.out.println(functions);
 	            isThereAnotherParam = true;
         		}
         	}
