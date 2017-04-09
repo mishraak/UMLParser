@@ -22,6 +22,7 @@ public class Parser {
 	String inDir;
 	String outDir;
 	ArrayList<CompilationUnit> cunits;
+	static Map<String, String> mapOfClass = new HashMap<String, String>();
 	static Map<String, Boolean> mapClassOrInterface = new HashMap<String, Boolean>();
 	static String umlString ;
 	
@@ -208,18 +209,18 @@ public class Parser {
                 if (getDepen.length() > 0 && map.containsKey(getDepen)) {
                     String connection = "-";
 
-                    if (mapClassConn
+                    if (mapOfClass
                             .containsKey(getDepen + "-" + classShortName)) {
-                        connection = mapClassConn
+                        connection = mapOfClass
                                 .get(getDepen + "-" + classShortName);
                         if (getDepenMultiple)
                             connection = "*" + connection;
-                        mapClassConn.put(getDepen + "-" + classShortName,
+                        mapOfClass.put(getDepen + "-" + classShortName,
                                 connection);
                     } else {
                         if (getDepenMultiple)
                             connection += "*";
-                        mapClassConn.put(classShortName + "-" + getDepen,
+                        mapOfClass.put(classShortName + "-" + getDepen,
                                 connection);
                     }
                 }
