@@ -203,31 +203,31 @@ public class Parser {
                     getDepen = fieldClass.substring(fieldClass.indexOf("(") + 1,
                             fieldClass.indexOf(")"));
                     getDepenMultiple = true;
-                } else if (map.containsKey(fieldClass)) {
+                } else if (mapClassOrInterface.containsKey(fieldClass)) {
                     getDepen = fieldClass;
                 }
-                if (getDepen.length() > 0 && map.containsKey(getDepen)) {
+                if (getDepen.length() > 0 && mapClassOrInterface.containsKey(getDepen)) {
                     String connection = "-";
 
                     if (mapOfClass
-                            .containsKey(getDepen + "-" + classShortName)) {
+                            .containsKey(getDepen + "-" + classNmMap)) {
                         connection = mapOfClass
-                                .get(getDepen + "-" + classShortName);
+                                .get(getDepen + "-" + classNmMap);
                         if (getDepenMultiple)
                             connection = "*" + connection;
-                        mapOfClass.put(getDepen + "-" + classShortName,
+                        mapOfClass.put(getDepen + "-" + classNmMap,
                                 connection);
                     } else {
                         if (getDepenMultiple)
                             connection += "*";
-                        mapOfClass.put(classShortName + "-" + getDepen,
+                        mapOfClass.put(classNmMap + "-" + getDepen,
                                 connection);
                     }
                 }
                 if (fieldScope == "+" || fieldScope == "-") {
                     if (nextField)
-                        fields += "; ";
-                    fields += fieldScope + " " + fieldName + " : " + fieldClass;
+                        field += "; ";
+                    field += fieldScope + " " + fieldName + " : " + fieldClass;
                     nextField = true;
                 }
             }
