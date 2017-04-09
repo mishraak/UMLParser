@@ -13,6 +13,7 @@ import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.body.BodyDeclaration;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.body.ConstructorDeclaration;
+import com.github.javaparser.ast.body.FieldDeclaration;
 import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.body.Parameter;
 import com.github.javaparser.ast.body.TypeDeclaration;
@@ -172,9 +173,94 @@ public class Parser {
         	 }
         	 
         	 //System.out.println(extras);
-		}   
+		}
+        
+        
+
+        // Parsing Fields
+        boolean nextField = false;
+        for (BodyDeclaration bd : ((TypeDeclaration) node).getMembers()) { 
+            if (bd instanceof FieldDeclaration) {
+                FieldDeclaration fd = ((FieldDeclaration) bd);
+                String fieldScope = aToSymScope(
+                        bd.toStringWithoutComments().substring(0,
+                                bd.toStringWithoutComments().indexOf(" ")));
+                String fieldClass = changeBrackets(fd.getType().toString());
+                String fieldName = fd.getChildrenNodes().get(1).toString();
+                if (fieldName.contains("="))
+                    fieldName = fd.getChildrenNodes().get(1).toString()
+                            .substring(0, fd.getChildrenNodes().get(1)
+                                    .toString().indexOf("=") - 1);
+                // Change scope of getter, setters
+                if (fieldScope.equals("-")
+                        && publicFields.contains(fieldName.toLowerCase())) {
+                    fieldScope = "+";
+                }
+                String getDepen = "";
+                boolean getDepenMultiple = false;
+                if (fieldClass.contains("(")) {
+                    getDepen = fieldClass.substring(fieldClass.indexOf("(") + 1,
+                            fieldClass.indexOf(")"));
+                    getDepenMultiple = true;
+                } else if (map.containsKey(fieldClass)) {
+                    getDepen = fieldClass;
+                }
+                if (getDepen.length() > 0 && map.containsKey(getDepen)) {
+                    String connection = "-";
+
+                    if (mapClassConn
+                            .containsKey(getDepen + "-" + classShortName)) {
+                        connection = mapClassConn
+                                .get(getDepen + "-" + classShortName);
+                        if (getDepenMultiple)
+                            connection = "*" + connection;
+                        mapClassConn.put(getDepen + "-" + classShortName,
+                                connection);
+                    } else {
+                        if (getDepenMultiple)
+                            connection += "*";
+                        mapClassConn.put(classShortName + "-" + getDepen,
+                                connection);
+                    }
+                }
+                if (fieldScope == "+" || fieldScope == "-") {
+                    if (nextField)
+                        fields += "; ";
+                    fields += fieldScope + " " + fieldName + " : " + fieldClass;
+                    nextField = true;
+                }
+            }
+
+        }
+        
+        
+        
+        
+        
         return fresult;
 	}
+	
+	private static String changeBrackets(String foo) {
+        foo = foo.replace("[", "(");
+        foo = foo.replace("]", ")");
+        foo = foo.replace("<", "(");
+        foo = foo.replace(">", ")");
+        return foo;
+    }
+
+    private static String aToSymScope(String stringScope) {
+        switch (stringScope) {
+        case "private":
+            return "-";
+        case "public":
+            return "+";
+        default:
+            return "";
+        }
+    }
+	
+	
+	
 	public void triggerParse() throws ParseException, IOException {
 		String astString = "";
 		// get list of all compilation units in an array list
