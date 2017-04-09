@@ -234,10 +234,7 @@ public class Parser {
 
         }
         
-        
-        
-        
-        
+           
         return fresult;
 	}
 	
@@ -286,7 +283,7 @@ public class Parser {
 		for (CompilationUnit cu : cunits)
 			umlString += Parser.parseCode(cu);
 
-		 //System.out.println(umlString);
+		 System.out.println(umlString);
 	}
 			
 	// http://stackoverflow.com/questions/32178349/parse-attributes-from-java-files-using-java-parser
