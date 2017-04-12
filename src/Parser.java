@@ -247,7 +247,11 @@ public class Parser {
             	addition += ",";
             }
         }
-        
+     // Combine className, methods and fields
+        fresult += classNm;
+        if (!field.isEmpty()) {
+        	fresult += "|" + changeBrackets(field);
+        }
         
         
         return fresult;
