@@ -17,6 +17,7 @@ import com.github.javaparser.ast.body.FieldDeclaration;
 import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.body.Parameter;
 import com.github.javaparser.ast.body.TypeDeclaration;
+import com.github.javaparser.ast.type.ClassOrInterfaceType;
 
 public class Parser {
 	String inDir;
@@ -32,7 +33,6 @@ public class Parser {
 	}
 	
 	public static String parseCode(CompilationUnit cu) {
-
 		String fresult 		= new String(),
 			   extras		= new String(),	
 			   classNm 		= new String(),
@@ -58,7 +58,6 @@ public class Parser {
 		classNm 	 = classNm + corid.getName();
 		classNmMap   = corid.getName();
 		
-		System.out.println(classNm);
         boolean isThereAnotherParam = false;			//just to adjust for semicolons
         for (BodyDeclaration bodyDecl : ((TypeDeclaration) node).getMembers()) {
           if (bodyDecl instanceof ConstructorDeclaration) {
@@ -234,7 +233,7 @@ public class Parser {
 
         }
         
-           
+        
         return fresult;
 	}
 	
@@ -283,7 +282,7 @@ public class Parser {
 		for (CompilationUnit cu : cunits)
 			umlString += Parser.parseCode(cu);
 
-		 //System.out.println(umlString);
+		 System.out.println(umlString);
 	}
 			
 	// http://stackoverflow.com/questions/32178349/parse-attributes-from-java-files-using-java-parser
