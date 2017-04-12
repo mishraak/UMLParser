@@ -233,6 +233,12 @@ public class Parser {
 
         }
         
+     // Check extends, implements
+        if (corid.getExtends() != null) {
+        	addition += "[" + classNmMap + "] " + "-^ " + corid.getExtends();
+        	addition += ",";
+        }
+        
         
         return fresult;
 	}
