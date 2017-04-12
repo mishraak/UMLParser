@@ -244,7 +244,11 @@ public class Parser {
             for (ClassOrInterfaceType intface : interfaceList) {
             	addition += "[" + classNmMap + "] " + "-.-^ " + "["
                         + "<<interface>>;" + intface + "]";
-            	
+            	addition += ",";
+            }
+        }
+        
+        
         
         return fresult;
 	}
