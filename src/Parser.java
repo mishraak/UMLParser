@@ -238,7 +238,10 @@ public class Parser {
         	addition += "[" + classNmMap + "] " + "-^ " + corid.getExtends();
         	addition += ",";
         }
-        
+        if (corid.getImplements() != null) {
+            List<ClassOrInterfaceType> interfaceList = (List<ClassOrInterfaceType>) corid
+                    .getImplements();
+            
         
         return fresult;
 	}
