@@ -241,7 +241,10 @@ public class Parser {
         if (corid.getImplements() != null) {
             List<ClassOrInterfaceType> interfaceList = (List<ClassOrInterfaceType>) corid
                     .getImplements();
-            
+            for (ClassOrInterfaceType intface : interfaceList) {
+            	addition += "[" + classNmMap + "] " + "-.-^ " + "["
+                        + "<<interface>>;" + intface + "]";
+            	
         
         return fresult;
 	}
