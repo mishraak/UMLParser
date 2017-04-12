@@ -255,6 +255,9 @@ public class Parser {
         if (!functions.isEmpty()) {
         	fresult += "|" + changeBrackets(functions);
         }
+        fresult += "]";
+        fresult += addition;
+        
         
         return fresult;
 	}
