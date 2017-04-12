@@ -252,7 +252,9 @@ public class Parser {
         if (!field.isEmpty()) {
         	fresult += "|" + changeBrackets(field);
         }
-        
+        if (!functions.isEmpty()) {
+        	fresult += "|" + changeBrackets(functions);
+        }
         
         return fresult;
 	}
