@@ -309,14 +309,20 @@ public class Parser {
 		for (CompilationUnit cu : cunits)
 			umlString += Parser.parseCode(cu);
 
-		 System.out.println(umlString);
+		 //System.out.println(umlString);
 		 
-		 //umlString = codeUniquer(umlString);
+		 umlString = codeUniquer(umlString);
 		 
 		 System.out.println(umlString);
 	}
 	
-    
+	private String codeUniquer(String code) {
+        String[] program = code.split(",");
+        String[] uniques = new LinkedHashSet<String>(
+                Arrays.asList(program)).toArray(new String[0]);
+        String res = String.join(",", uniques);
+        return res;
+    }
 			
 	// http://stackoverflow.com/questions/32178349/parse-attributes-from-java-files-using-java-parser
 	private ArrayList<CompilationUnit> getCunits(String inDir) throws ParseException, IOException {
