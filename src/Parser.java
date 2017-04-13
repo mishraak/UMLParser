@@ -3,7 +3,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -308,7 +310,13 @@ public class Parser {
 			umlString += Parser.parseCode(cu);
 
 		 System.out.println(umlString);
+		 
+		 //umlString = codeUniquer(umlString);
+		 
+		 System.out.println(umlString);
 	}
+	
+    
 			
 	// http://stackoverflow.com/questions/32178349/parse-attributes-from-java-files-using-java-parser
 	private ArrayList<CompilationUnit> getCunits(String inDir) throws ParseException, IOException {
