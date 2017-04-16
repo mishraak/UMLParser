@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -41,7 +42,15 @@ public class DiagGenerator {
 			e.printStackTrace();
 		}
 		
-		OutputStream outputStream = new FileOutputStream(new File(outPath));
+		try {
+			OutputStream outputStream = new FileOutputStream(new File(outPath));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		int read = 0;
+        byte[] bytes = new byte[1024];
 		
 		return null;
 	}
