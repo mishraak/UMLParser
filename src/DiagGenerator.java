@@ -13,6 +13,7 @@ public class DiagGenerator {
 		String webLink = "https://yuml.me/diagram/boring/class/" + grammar + ".png";
         URL url = null;
         HttpURLConnection conn = null;
+        OutputStream outputStream=null;
 		
         try {
 			url = new URL(webLink);
@@ -43,7 +44,7 @@ public class DiagGenerator {
 		}
 		
 		try {
-			OutputStream outputStream = new FileOutputStream(new File(outPath));
+			 outputStream = new FileOutputStream(new File(outPath));
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -51,6 +52,22 @@ public class DiagGenerator {
 		
 		int read = 0;
         byte[] bytes = new byte[1024];
+        
+        try {
+			while ((read = conn.getInputStream().read(bytes)) != -1) {
+			    outputStream.write(bytes, 0, read);
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        try {
+			outputStream.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        conn.disconnect();
 		
 		return null;
 	}
