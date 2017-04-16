@@ -9,8 +9,8 @@ import java.net.ProtocolException;
 import java.net.URL;
 
 public class DiagGenerator {
-	public static Boolean generatePNG(String grammar, String outPath){
-		String webLink = "https://yuml.me/diagram/boring/class/" + grammar + ".png";
+	public static void generatePNG(String grammar, String outPath){
+		String webLink = "https://yuml.me/diagram/plain/class/" + grammar + ".png";
         URL url = null;
         HttpURLConnection conn = null;
         OutputStream outputStream=null;
@@ -69,6 +69,6 @@ public class DiagGenerator {
 		}
         conn.disconnect();
 		
-		return null;
+
 	}
 }

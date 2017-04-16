@@ -4,7 +4,7 @@ import com.github.javaparser.ParseException;
 
 public class Driver {
 	public static void main(String[] args) throws ParseException, IOException {
-		Parser parser = new Parser("/Users/akshaymishra/Desktop/input", "outDiagram");
+		Parser parser = new Parser("/Users/akshaymishra/Desktop/input", "/Users/akshaymishra/Desktop/input/outDiagram");
 		try {
 			parser.triggerParse();
 		} catch (java.text.ParseException e) {
