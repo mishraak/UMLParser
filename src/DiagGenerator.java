@@ -18,8 +18,13 @@ public class DiagGenerator {
 			e1.printStackTrace();
 		}
 
-		
-
+		try {
+			conn = (HttpURLConnection) url.openConnection();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+       
 		
 		return null;
 	}
