@@ -12,26 +12,35 @@ public class DiagGenerator {
 		String webLink = "https://yuml.me/diagram/boring/class/" + grammar + ".png";
         URL url = null;
         HttpURLConnection conn = null;
-		try {
+		
+        try {
 			url = new URL(webLink);
 		} catch (MalformedURLException e1) {
 			e1.printStackTrace();
 		}
-
 		try {
 			conn = (HttpURLConnection) url.openConnection();
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-       
 		 try {
 				conn.setRequestMethod("GET");
-			} catch (ProtocolException e) {
+		} catch (ProtocolException e) {
 				e.printStackTrace();
+		}
+		conn.setRequestProperty("Accept", "application/json");    
+		
+		try {
+			if (conn.getResponseCode() != 200) {
+			    throw new RuntimeException(
+			            "Failed : HTTP error code : " + conn.getResponseCode());
 			}
-		 conn.setRequestProperty("Accept", "application/json");    
-
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		
 		return null;
 	}
