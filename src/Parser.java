@@ -27,7 +27,7 @@ public class Parser {
 	ArrayList<CompilationUnit> cunits;
 	static Map<String, String> mapOfClass = new HashMap<String, String>();
 	static Map<String, Boolean> mapClassOrInterface = new HashMap<String, Boolean>();
-	static String umlString ;
+	static String umlString  = "";
 	
 	public Parser(String in, String out){
 		inDir=in;
@@ -35,16 +35,10 @@ public class Parser {
 	}
 	
 	public static String parseCode(CompilationUnit cu) {
-		String fresult 		= new String(),
-			   extras		= new String(),	
-			   classNm 		= new String(),
-			   functions 	= new String(), 
-			   field 		= new String(), 
-			   addition 	= new String(","),
-			   classNmMap   = new String(),
-			   paramCls     = new String(),
-			   paramNm	    = new String();
 		
+		String paramNm="", paramCls="", classNmMap="",field="", functions="",  classNm="", extras="", fresult="";
+		String addition=",";
+				
 		Parameter param;
 		List<String> publicFields = new ArrayList<String>();
 		
