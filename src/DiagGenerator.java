@@ -41,6 +41,7 @@ public class DiagGenerator {
 			e.printStackTrace();
 		}
 		
+		OutputStream outputStream = new FileOutputStream(new File(outPath));
 		
 		return null;
 	}
