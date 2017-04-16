@@ -25,6 +25,13 @@ public class DiagGenerator {
 			e1.printStackTrace();
 		}
        
+		 try {
+				conn.setRequestMethod("GET");
+			} catch (ProtocolException e) {
+				e.printStackTrace();
+			}
+	        
+
 		
 		return null;
 	}
