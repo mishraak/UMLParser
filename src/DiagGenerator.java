@@ -30,7 +30,7 @@ public class DiagGenerator {
 			} catch (ProtocolException e) {
 				e.printStackTrace();
 			}
-	        
+		 conn.setRequestProperty("Accept", "application/json");    
 
 		
 		return null;
