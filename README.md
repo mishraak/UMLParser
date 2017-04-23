@@ -7,5 +7,7 @@ Further once this AST string is generated, then we will pass this as an argument
 
 The program will also generate Sequence Diagram for the Java source code.
 
-The functionality will eventually be deployed to Cloud.
+The functionality will eventually be deployed to Cloud and made available as service.
+
+
 
