@@ -68,20 +68,16 @@ Libraries used:
 
 Parser: https://github.com/javaparser/javaparser
 For parsing the java code, javaparser library was used.
-
 Javaparser uses the mechanism of 'CompilationUnit' to parse the code for its classes, fields and the methods.
 
 
 UML Generation Tool: https://yuml.me/diagram/plain/class/draw/
-
-It's a free tool for the generation of UML diagrams and we are making an HTTP request through Java code. 
-
+It is a free tool for the generation of UML diagrams and we are making an HTTP request through Java code. 
 We provide the 'Abstract Syntax Tree' (AST) as the grammar for the generation of the diagram in the request.
 We then parse it's response into an image file., which contains the UML representation of the source code.
 
 
 Sequence Generator: PlantUML
-
 We are using PlantUML for the generation of the sequence diagram.
 
 
