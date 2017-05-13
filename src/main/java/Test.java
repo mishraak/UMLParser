@@ -3,10 +3,10 @@ import net.lingala.zip4j.exception.ZipException;
 import org.apache.commons.io.FilenameUtils;
 
 public class Test {
-    public static void main(String[] k) throws Exception {
+    public static void main(String[] args) throws Exception {
     	    	
-    	String[] args= { "seq", "/Users/akshaymishra/Desktop/tests/uml-sequence-test.zip", "Main", "main", "out"};
-    	//String[] args= { "class", "/Users/akshaymishra/Desktop/tests/uml-parser-test-4.zip", "out"};
+    	//String[] args= { "seq", "/Users/akshaymishra/Desktop/tests/uml-sequence-test.zip", "Main", "main", "out"};
+    	//String[] args= { "class", "/Users/akshaymishra/Desktop/tests/uml-parser-test-1.zip", "out"};
     	
     	String extPath=null,inPath=null;    	
         boolean zipped=false;     		  
