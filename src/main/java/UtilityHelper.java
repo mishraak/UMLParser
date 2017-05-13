@@ -75,7 +75,7 @@ public class UtilityHelper {
         }
 	}
 	
-    public static String changeBrackets(String bracket) {
+    public static String bracketChangeMethod(String bracket) {
         bracket = bracket.replace("[", "(");
         bracket = bracket.replace("]", ")");
         bracket = bracket.replace("<", "(");
@@ -83,7 +83,7 @@ public class UtilityHelper {
         return bracket;
     }
 
-    public static String aToSymScope(String stringScope) {
+    public static String modifyScope(String stringScope) {
        if (stringScope.equals("private"))
     	   return "-";
        else if (stringScope.equals("public"))
@@ -194,9 +194,7 @@ public class Test {
   	            System.out.println("Invalid keyword " + args[0]);
   	        }
 
-      	}
-      	
-	
+      	}      		
     }
 }
 

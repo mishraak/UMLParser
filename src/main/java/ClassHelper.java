@@ -114,8 +114,8 @@ public class ClassHelper {
 	    for (BodyDeclaration bodyDeclaration : ((TypeDeclaration) node).getMembers()) { 
 	        if (bodyDeclaration instanceof FieldDeclaration) {
 	            FieldDeclaration fieldDeclaration = ((FieldDeclaration) bodyDeclaration);
-	            String scopefield = UtilityHelper.aToSymScope( bodyDeclaration.toStringWithoutComments().substring(0, bodyDeclaration.toStringWithoutComments().indexOf(" "))); 
-	            String classField = UtilityHelper.changeBrackets(fieldDeclaration.getType().toString());
+	            String scopefield = UtilityHelper.modifyScope( bodyDeclaration.toStringWithoutComments().substring(0, bodyDeclaration.toStringWithoutComments().indexOf(" "))); 
+	            String classField = UtilityHelper.bracketChangeMethod(fieldDeclaration.getType().toString());
 	            String nameField = fieldDeclaration.getChildrenNodes().get(1).toString();
 	            if (nameField.contains("="))
 	                nameField = fieldDeclaration.getChildrenNodes().get(1).toString().substring(0, fieldDeclaration.getChildrenNodes().get(1).toString().indexOf("=") - 1);
@@ -185,10 +185,10 @@ public class ClassHelper {
 	public static String combiner(String res, String nameOfTheClass, String additions, String fields, String methods){
 	    res = res + nameOfTheClass;
 	    if (!fields.isEmpty()) {
-	        res = res + "|" + UtilityHelper.changeBrackets(fields);
+	        res = res + "|" + UtilityHelper.bracketChangeMethod(fields);
 	    }
 	    if (!methods.isEmpty()) {
-	        res = res + "|" + UtilityHelper.changeBrackets(methods);
+	        res = res + "|" + UtilityHelper.bracketChangeMethod(methods);
 	    }
 	    res = res + "]";
 	    res = res + additions;
