@@ -39,7 +39,7 @@ In order to generate a UML Class diagram from Java source code, run below comman
 java -jar umlparser.jar class "\Users\akshaymishra\workspace\tests\uml-parser-test-1.zip" output
 ```
 
-*^creates output.png in the same folder as the input folder*
+*creates output.png in the same folder as the input folder*
 
 
 For the generation of the sequence diagram, additional 2 arguments are required:
@@ -55,11 +55,11 @@ For the generation of the sequence diagram, additional 2 arguments are required:
 In order to generate a UML Class diagram from Java source code, run below command:
 
 ```
-java -jar umlparser.jar seq "\Users\akshaymishra\workspace\tests\uml-parser-test-1.zip" Customer depositMoney output
+java -jar umlparser.jar seq "\Users\akshaymishra\workspace\tests\uml-parser-test-1.zip" Main main output
 ```
 
-*^creates output.png in the same folder as the input folder*
-***
+*creates output.png in the same folder as the input folder*
+
 ### Details of libraries and tools used
 
 
