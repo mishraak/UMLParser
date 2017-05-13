@@ -58,7 +58,7 @@ This creates “output.png” in the same folder as the input folder.
 
 ### Details of libraries and tools used:
 
-*Parsing Java Class: Javaparser https://github.com/javaparser/javaparser*
+Parsing Java Class: Javaparser https://github.com/javaparser/javaparser
 For parsing the java code, an open source library called ‘Javaparser’ is used.
 We access each java entity in the form of a ‘Compilation Unit’ and access multiple attributes, methods, fields using multiple available methods.
 
