@@ -5,8 +5,8 @@ import org.apache.commons.io.FilenameUtils;
 public class Test {
     public static void main(String[] k) throws Exception {
     	    	
-    	//String[] args= { "seq", "/Users/akshaymishra/Desktop/tests/uml-sequence-test.zip", "Main", "main", "out"};
-    	String[] args= { "class", "/Users/akshaymishra/Desktop/tests/uml-parser-test-4.zip", "out"};
+    	String[] args= { "seq", "/Users/akshaymishra/Desktop/tests/uml-sequence-test.zip", "Main", "main", "out"};
+    	//String[] args= { "class", "/Users/akshaymishra/Desktop/tests/uml-parser-test-4.zip", "out"};
     	
     	String extPath=null,inPath=null;    	
         boolean zipped=false;     		  
@@ -19,8 +19,7 @@ public class Test {
       	        zipFile.extractAll(extPath);
       	    } catch (ZipException e) {
       	        e.printStackTrace();
-      	    }
-      		
+      	    }      		
       		inPath = extPath + args[1].substring(args[1].lastIndexOf("/"), args[1].lastIndexOf("."));	
       	}
       	
@@ -48,7 +47,6 @@ public class Test {
   	        } else{
   	            System.out.println("Invalid keyword " + args[0]);
   	        }
-
       	}
     }
 }
