@@ -33,7 +33,9 @@ Input arguments:
 
 #### Example:-
 For the generation of the UML Class diagram from Java source code, run below command:
+```
 java -jar umlparser.jar class "\Users\akshaymishra\workspace\tests\uml-parser-test-1.zip" output
+```
 This creates “output.png” in the same folder as the input folder.
 
 For the generation of the UML sequence diagram, additional 2 arguments are required:
@@ -48,13 +50,15 @@ Ex: BuildOrder
 #### Example:- 
 
 In order to generate a UML Class diagram from Java source code, run below command:
+```
 java -jar umlparser.jar seq "\Users\akshaymishra\workspace\tests\uml-parser-test-1.zip" Main main output
+```
 This creates “output.png” in the same folder as the input folder.
 
 
 ### Details of libraries and tools used:
 
-Parsing Java Class: Javaparser https://github.com/javaparser/javaparser
+*Parsing Java Class: Javaparser https://github.com/javaparser/javaparser*
 For parsing the java code, an open source library called ‘Javaparser’ is used.
 We access each java entity in the form of a ‘Compilation Unit’ and access multiple attributes, methods, fields using multiple available methods.
 
